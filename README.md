@@ -1,36 +1,24 @@
----
-title: Sajdah Connect App
-emoji: 🕌
-colorFrom: yellow
-colorTo: gray
-sdk: docker
-app_port: 7860
-pinned: false
-license: mit
----
+# Sajdah Connect App (GitHub) 🕌
 
-# Sajdah Connect (Backend) 🕌
-
-A high-performance community platform for Masjids, engineered with **FastAPI** and **PostgreSQL**. This project is fully containerized and deployable to **Hugging Face Spaces** with a built-in CI/CD pipeline.
-
-## 🚀 DevOps Core
-- **Dockerized**: Ready for any container-orchestrated environment.
-- **CI/CD**: Automatic synchronization to Hugging Face Spaces on every push to `main`.
-- **Secrets Management**: Local environment variables can be automatically migrated to Hugging Face.
+This is the main repository for the **Sajdah Connect** application, containing both the backend and frontend code.
 
 ## 📁 Repository Structure
-- `/backend`: The core FastAPI application logic and database models.
+- `/backend`: FastAPI backend application. (Auto-synced to [Hugging Face Spaces](https://huggingface.co/spaces/dameerahmed/sajdah-connect-backend))
 - `/frontend`: Premium Flutter-based user application.
-- `/.github/workflows`: The automated deployment pipeline.
+
+## 🚀 Deployment Isolation
+The backend is automatically isolated and pushed to Hugging Face Spaces on every commit to `main` using a `git subtree` pipeline.
 
 ## 🏗️ Local Development
-To run the project locally using `uv`:
+
+### Backend
 ```bash
-# Backend
 cd backend
 uv run uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+```
 
-# Frontend
+### Frontend
+```bash
 cd frontend
 flutter run
 ```

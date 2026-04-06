@@ -15,14 +15,14 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libpq-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy requirements from backend folder
-COPY backend/requirements.txt .
+# Copy requirements (now in the same folder as Dockerfile)
+COPY requirements.txt .
 
 # Install dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the entire backend directory
-COPY backend/ .
+# Copy the entire backend directory (current folder)
+COPY . .
 
 # Expose the port Hugging Face expects
 EXPOSE 7860
