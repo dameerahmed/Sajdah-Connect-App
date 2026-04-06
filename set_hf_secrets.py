@@ -4,7 +4,7 @@ from dotenv import dotenv_values
 
 # Configuration
 # TODO: Update this if your space ID is different
-REPO_ID = "dameerahmed/Sajdah-Connect-App"
+REPO_ID = "dameerahmed/sajdah-connect-backend"
 DOTENV_PATH = "backend/.env"
 
 def upload_secrets():

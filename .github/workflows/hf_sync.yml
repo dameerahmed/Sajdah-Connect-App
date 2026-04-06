@@ -25,8 +25,7 @@ jobs:
           git config --global user.name "GitHub Actions"
           
           # Add Hugging Face as a remote
-          # TODO: Match this with your Space ID
-          git remote add hf https://dameerahmed:$HF_TOKEN@huggingface.co/spaces/dameerahmed/Sajdah-Connect-App
+          git remote add hf https://dameerahmed:$HF_TOKEN@huggingface.co/spaces/dameerahmed/sajdah-connect-backend
           
           # Force push to main branch on Hugging Face
           git push --force hf main
