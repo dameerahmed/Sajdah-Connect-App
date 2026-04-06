@@ -27,5 +27,5 @@ jobs:
           # Add Hugging Face as a remote
           git remote add hf https://dameerahmed:$HF_TOKEN@huggingface.co/spaces/dameerahmed/sajdah-connect-backend
           
-          # Push ONLY the backend folder to Hugging Face
-          git subtree push --prefix backend hf main
+          # Force push ONLY the backend folder contents to Hugging Face
+          git push hf $(git subtree split --prefix backend main):main --force
