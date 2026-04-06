@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:masjid_connect/features/auth/data/auth_repository.dart';
 
@@ -80,8 +81,10 @@ class AuthNotifier extends StateNotifier<AuthState> {
       final prefs = await SharedPreferences.getInstance();
       final token = prefs.getString(_tokenKey);
       state = state.copyWith(token: token);
+      return token != null;
     } catch (e) {
-      print("Error loading token: $e");
+      debugPrint("Error loading token: $e");
+      return false;
     }
   }
 

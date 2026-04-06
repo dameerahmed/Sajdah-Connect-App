@@ -351,7 +351,7 @@ class _GooglePremiumButton extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Image.asset(
-                      'assets/images/google_icon.png',
+                      'assets/images/google_logo.png',
                       width: 20,
                       height: 20,
                       errorBuilder: (context, error, stackTrace) {
