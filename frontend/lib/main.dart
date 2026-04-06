@@ -119,7 +119,7 @@ class MasjidConnectApp extends ConsumerWidget {
     return MaterialApp.router(
       title: 'Sajdah Connect',
       debugShowCheckedModeBanner: false,
-      theme: AppTheme.darkTheme, // Updated to Dark Theme for Obsidian Gold
+      theme: AppTheme.darkTheme,
       routerConfig: router,
       locale: locale,
       localizationsDelegates: const [
@@ -142,81 +142,6 @@ class MasjidConnectApp extends ConsumerWidget {
         }
         return supportedLocales.first; // Default to English
       },
-    );
-  }
-}
-
-class AuthWrapper extends ConsumerStatefulWidget {
-  const AuthWrapper({super.key});
-
-  @override
-  ConsumerState<AuthWrapper> createState() => _AuthWrapperState();
-}
-
-class _AuthWrapperState extends ConsumerState<AuthWrapper> {
-  bool _didNavigate = false;
-
-  @override
-  Widget build(BuildContext context) {
-    final authState = ref.watch(authProvider);
-
-    if (authState.isInitialized && !_didNavigate) {
-      _didNavigate = true;
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (!mounted) {
-          return;
-        }
-        context.go(authState.token == null ? '/login' : '/home');
-      });
-    }
-
-    return const SplashScreen();
-  }
-}
-
-class SplashScreen extends StatelessWidget {
-  const SplashScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFF0F1113),
-      body: Stack(
-        children: [
-          Positioned.fill(
-            child: Container(
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [Color(0xFF0A0B0D), Color(0xFF111417), Color(0xFF0F1113)],
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                ),
-              ),
-            ),
-          ),
-          Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Image.asset(
-                  'assets/images/premium_logo_final.png',
-                  width: 170,
-                  fit: BoxFit.contain,
-                ),
-                const SizedBox(height: 28),
-                const SizedBox(
-                  width: 26,
-                  height: 26,
-                  child: CircularProgressIndicator(
-                    strokeWidth: 2.6,
-                    color: Color(0xFFD4AF37),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
     );
   }
 }

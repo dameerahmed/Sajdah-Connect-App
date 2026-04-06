@@ -52,24 +52,30 @@ class AuthNotifier extends StateNotifier<AuthState> {
 
   Future<void> _init() async {
     try {
-      await _loadToken();
-      if (state.token != null) {
-        // Use a timeout to ensure we don't hang on the splash screen forever
+      debugPrint('AUTH_INIT: Starting session initialization...');
+      final hasToken = await _loadToken();
+      if (hasToken) {
+        debugPrint('AUTH_INIT: Token found, fetching user...');
+        // Try to fetch user with a short timeout
         await fetchCurrentUser().timeout(
-          const Duration(seconds: 5),
+          const Duration(seconds: 3),
           onTimeout: () {
-            print("Current user fetch timed out, proceeding to app.");
+            debugPrint('AUTH_INIT: fetchCurrentUser timed out after 3s');
+            return null;
           },
         );
+      } else {
+        debugPrint('AUTH_INIT: No token found.');
       }
     } catch (e) {
-      print("Auth initialization error: $e");
+      debugPrint('AUTH_INIT: Initialization error: $e');
     } finally {
+      debugPrint('AUTH_INIT: Marking initialized = true');
       state = state.copyWith(isInitialized: true);
     }
   }
 
-  Future<void> _loadToken() async {
+  Future<bool> _loadToken() async {
     try {
       final prefs = await SharedPreferences.getInstance();
       final token = prefs.getString(_tokenKey);

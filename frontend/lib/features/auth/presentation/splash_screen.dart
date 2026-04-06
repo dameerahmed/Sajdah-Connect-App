@@ -3,24 +3,43 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:masjid_connect/features/auth/presentation/auth_providers.dart';
 
-class SplashScreen extends ConsumerWidget {
+class SplashScreen extends ConsumerStatefulWidget {
   const SplashScreen({super.key});
 
+  @override
+  ConsumerState<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends ConsumerState<SplashScreen> {
+  bool _showSkipButton = false;
   static const Color _bg = Color(0xFF0F1113);
   static const Color _bg2 = Color(0xFF15181B);
   static const Color _gold = Color(0xFFD4AF37);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  void initState() {
+    super.initState();
+    // Show skip button after 5 seconds if still on splash
+    Future.delayed(const Duration(seconds: 5), () {
+      if (mounted) {
+        setState(() => _showSkipButton = true);
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final authState = ref.watch(authProvider);
 
     // Simple direct navigation based on state
     if (authState.isInitialized) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (authState.token != null) {
-          context.go('/home');
-        } else {
-          context.go('/login');
+        if (mounted) {
+          if (authState.token != null) {
+            context.go('/home');
+          } else {
+            context.go('/login');
+          }
         }
       });
     }
@@ -68,18 +87,23 @@ class SplashScreen extends ConsumerWidget {
                     letterSpacing: 0.5,
                   ),
                 ),
-                const SizedBox(height: 8),
-                const Text(
-                  'Faith, Community, Technology',
-                  style: TextStyle(
-                    color: Color(0xFF9A9A9A),
-                    fontSize: 13,
-                    letterSpacing: 0.8,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
                 const SizedBox(height: 48),
                 const _InstagramStyleSpinner(),
+                const SizedBox(height: 32),
+                if (_showSkipButton)
+                  TextButton(
+                    onPressed: () => context.go('/login'),
+                    style: TextButton.styleFrom(
+                      foregroundColor: _gold.withOpacity(0.8),
+                    ),
+                    child: const Text(
+                      'Connection slow? Click here to Login',
+                      style: TextStyle(
+                        fontSize: 14,
+                        decoration: TextDecoration.underline,
+                      ),
+                    ),
+                  ),
               ],
             ),
           ),
