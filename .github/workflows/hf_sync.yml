@@ -1,0 +1,32 @@
+name: Sync to Hugging Face Space
+
+on:
+  push:
+    branches:
+      - main
+  # Allow manual trigger
+  workflow_dispatch:
+
+jobs:
+  sync-to-hub:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          lfs: true
+
+      - name: Push to Hub
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          # Configure Git
+          git config --global user.email "dameerahmed@github-actions"
+          git config --global user.name "GitHub Actions"
+          
+          # Add Hugging Face as a remote
+          # TODO: Match this with your Space ID
+          git remote add hf https://dameerahmed:$HF_TOKEN@huggingface.co/spaces/dameerahmed/Sajdah-Connect-App
+          
+          # Force push to main branch on Hugging Face
+          git push --force hf main

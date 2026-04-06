@@ -1,0 +1,51 @@
+# Environments
+.env
+.env.*
+.venv/
+env/
+venv/
+ENV/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+backend/__pycache__/
+backend/.venv/
+
+# Flutter/Dart
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+build/
+frontend/build/
+frontend/.dart_tool/
+frontend/.flutter-plugins
+frontend/.flutter-plugins-dependencies
+
+# Android
+**/*.iml
+**/*.ipr
+**/*.iws
+.idea/
+.gradle/
+local.properties
+**/captures/
+**/google-services.json
+
+# iOS
+**/ios/Flutter/.last_build_id
+**/ios/Flutter/Generated.xcconfig
+**/ios/Flutter/flutter_export_environment.sh
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# HF Secrets script dependencies
+hf_env/

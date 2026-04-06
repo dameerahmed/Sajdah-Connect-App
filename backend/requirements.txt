@@ -1,0 +1,17 @@
+fastapi
+uvicorn
+sqlalchemy[asyncio]
+sqlmodel
+asyncpg
+pydantic-settings
+python-dotenv
+python-jose[cryptography]
+passlib[bcrypt]
+cloudinary
+firebase-admin
+alembic
+python-multipart
+httpx
+pytest
+pytest-asyncio
+email-validator
